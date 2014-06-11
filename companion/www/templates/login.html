@@ -1,0 +1,43 @@
+ <ion-view title="Sign-In">
+
+
+
+
+        <ion-content>
+
+
+          <div class="list">
+
+            <div class="row">
+                <div class="col col-center"><img src="img/otaku.png" class="center" style="margin-left: auto; margin-right: auto; display: block;" height="145"> </img></div>
+
+            </div>
+
+            <label class="item" style='text-align: center;'">
+                Please login to MyAnimeList. 
+            </label>
+
+            <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="text" ng-model="user.username">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="user.password">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="signIn(user)">
+              Sign-In
+            </button>
+          </div>
+
+          
+
+        </ion-content>
+
+        <div class="bar bar-footer bar-dark">
+            <div class="title">Otaku Companion is not affilated with MAL.</div>
+        </div>
+
+      </ion-view>
