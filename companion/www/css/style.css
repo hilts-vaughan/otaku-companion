@@ -1,1 +1,55 @@
 /* Empty. Add your own CSS if you like */
+
+.scroll-content.contentpage {
+	background-color: #d3d3d3 ;
+}
+
+
+.animecard {
+	margin: 0;
+	height: 240px;
+}
+
+.animecard .poster {
+	float: left;
+	height: 100%;
+	width: 33%;
+}
+
+.animecard .animeinfo {
+	float: right;
+	width: 66%;
+}
+
+.full-image {
+	width: 50%;
+	height: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.animedetails h2
+{
+	font-family: "Open Sans";
+	text-align: left;
+	font-weight: bold;
+	color: blue;
+}
+
+.animedetails img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.animedetails .infoheader {
+	font-weight: bold;
+	float: left;
+	text-align: left;
+}
+
+.animedetails .infodata {
+	text-align: right;
+	float: right;
+}

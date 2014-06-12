@@ -29,6 +29,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       controller: 'LoginController'
     })
 
+    .state('app', {
+      url: "/app",
+      abstract: true,
+      templateUrl: "templates/menu.html"
+    })
+
     .state('app.search', {
       url: "/search",
       views: {
@@ -37,6 +43,28 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+
+
+    .state('app.airing', {
+      url: "/airing",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/airing.html",
+          controller: "AiringController"
+        }
+      }
+    })
+
+    .state('app.animedetails', {
+      url: "/anime/:id",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/anime-details.html",
+          controller: "AnimeDetailsController"
+        }
+      }
+    })    
+
 
     .state('app.browse', {
       url: "/browse",
@@ -56,12 +84,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
 
-    .state('app.single', {
-      url: "/playlists/:playlistId",
+    .state('app.my', {
+      url: "/my",
       views: {
         'menuContent' :{
-          templateUrl: "templates/dashboard.html",
-          controller: 'PlaylistCtrl'
+          templateUrl: "templates/my.html",
+          controller: 'MyListController'
         }
       }
     });
