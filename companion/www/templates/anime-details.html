@@ -18,6 +18,11 @@
   <div class="item item-body">
 
     <div class="row">
+        <div class="col col-50 infoheader">Title: </div>
+        <div class="col col-50 infodata">{{anime.name}}</div>
+    </div>
+
+    <div class="row">
         <div class="col col-50 infoheader">Type: </div>
         <div class="col col-50 infodata">{{anime.type}}</div>
     </div>
@@ -34,12 +39,12 @@
 
     <div class="row">
         <div class="col col-50 infoheader">Score: </div>
-        <div class="col col-50 infodata">{{anime.score}}</div>
+        <div class="col col-50 infodata">{{anime.malstats.score}}</div>
     </div>    
 
     <div class="row">
         <div class="col col-50 infoheader">Ranked: </div>
-        <div class="col col-50 infodata">#{{anime.rank}}</div>
+        <div class="col col-50 infodata">#{{anime.malstats.rank}}</div>
     </div>    
 
     <div class="row">
