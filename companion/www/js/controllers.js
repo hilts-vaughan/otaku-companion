@@ -50,6 +50,20 @@ angular.module('starter.controllers', [])
 })
 
 
+
+.controller('AnimeReviewsController', function($scope, $state, $http, $stateParams) {
+
+  $http.get('http://192.168.1.160:8899/mal/anime/reviews/' + $stateParams.id)
+    .success(function(data) {
+      $scope.reviews = data;
+
+
+    });
+
+})
+
+
+
 .controller("AiringController", function($scope, $state, $http) {
 
 
@@ -70,12 +84,7 @@ angular.module('starter.controllers', [])
         $scope.season = data.season;
 
 
-        $scope.chartData.forEach(function(entry) {
-          $http.get('http://192.168.1.160:8899/mal/anime/id/' + entry['mal_id'])
-            .success(function(d) {
-              $.extend(entry, d);
-            });
-        });
+  
 
 
 
@@ -114,6 +123,9 @@ angular.module('starter.controllers', [])
 
 .controller("AnimeDetailsController", function($scope, $state, $http, $stateParams) {
 
+  $scope.goToReview = function() {
+     $state.go("app.animereviews", {id: $scope.anime.mal_id});
+  };
 
   $http.get('http://192.168.1.160:8899/mal/anime/id/' + $stateParams.id)
     .success(function(data) {

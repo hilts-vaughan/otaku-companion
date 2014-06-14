@@ -1,0 +1,48 @@
+<ion-view title="Reviews">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header contentpage">
+
+
+
+  <ion-list>
+
+<div class="list card">
+
+
+  <div class="item item-body" ng-repeat="review in reviews" >
+  <div class="item item-avatar">
+    <img src="{{review.avatar}}">
+    <span>{{review.authour}}</span>
+    <p>Rating: {{review.rating}}<p>
+  </div>
+
+  <div class="item item-body review-text">
+
+  <pre class="review-text" ng-bind-html="review.body"></pre>
+
+  </div>
+
+
+  </div>
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+   </ion-list>
+
+  </ion-content>
+
+
+
+
+</ion-view>
