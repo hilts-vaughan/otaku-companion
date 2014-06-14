@@ -10,17 +10,9 @@
 
   <label class="item item-input item-select">
     <div class="input-label">
-      Airing Day
+      Airing Season  - {{currentSeason.title}}
     </div>
-    <select>
-      <option selected>Monday</option>      
-      <option>Tuesday</option>
-      <option>Wednesday</option>
-      <option>Thursday</option>      
-      <option>Friday</option>
-      <option>Saturday</option>      
-      <option>Sunday</option>            
-    </select>
+  <select ng-change="update(currentSeason)" ng-model="currentSeason" ng-options="season.title for season in seasons"></select>
   </label>
 
 

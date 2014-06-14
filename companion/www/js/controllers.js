@@ -53,6 +53,14 @@ angular.module('starter.controllers', [])
 .controller("AiringController", function($scope, $state, $http) {
 
 
+   $scope.seasons = [
+        {title: "Spring" , value: 'spring' },
+        {title: "Summer" , value: 'summer' },
+        {title: "Winter" , value: 'winter' },
+        {title: "Fall" , value: 'fall' }        
+    ];
+
+  $scope.currentSeason = $scope.seasons[0];
 
   $scope.getSeason = function(season) {
 
@@ -83,8 +91,12 @@ angular.module('starter.controllers', [])
     });
   };
 
+  $scope.update = function(option) {
+    $scope.getSeason(option.value);
+  };
 
-  $scope.getSeason('summer');
+
+  $scope.getSeason($scope.currentSeason.value);
 
 
 
