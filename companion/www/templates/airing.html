@@ -30,23 +30,10 @@
     <ion-list>
 
 
+
+
 <div class="list card" ng-repeat="anime in chartData">
-
-  <div class="item item-avatar">
-    <img src="http://cdn.myanimelist.net/images/anime/13/10000.jpg">
-    <h2>{{anime.title}}</h2>
-    <p>Episodes: {{anime.episodes}}</p>
-  </div>
-
-  <div class="item item-body">
-    <img class="full-image" src="http://cdn.myanimelist.net/images/anime/13/24647.jpg">
-    
-
-  <p>Events in After Story take place immediately after the first season, following Tomoya's final semester of high school. After declaring his love to Nagisa, they begin to have a close relationship. Their life together will be faced with unexpected challenges, as the truth behind the illusionary world and the city's legend come to light.
-Read more at http://myanimelist.net/anime/4181/Clannad:_After_Story/#jJGKMkj68BlTMBL8.99</p>
-
-  </div>
-
+    <ng-anime ng-model="anime"></ng-anime>
 </div>
 
 
