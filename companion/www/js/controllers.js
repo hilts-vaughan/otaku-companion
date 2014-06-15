@@ -1,5 +1,14 @@
 angular.module('starter.controllers', [])
 
+.filter('displayEpisodeCount', function() {
+  return function(input) {
+    console.log(input);
+    if(input == -1)
+      return "Unknown";
+    else
+      return input;
+  };
+})
 
 
 .controller('AppCtrl', function($scope) {})
@@ -53,9 +62,9 @@ angular.module('starter.controllers', [])
 
 .controller('AnimeReviewsController', function($scope, $state, $http, $stateParams) {
 
-  $http.get('http://192.168.1.160:8899/mal/anime/reviews/' + $stateParams.id)
+  $http.get('http://192.168.1.160:8899/mal/anime/id/' + $stateParams.id + '/reviews')
     .success(function(data) {
-      $scope.reviews = data;
+      $scope.reviews = data.reviews;
 
 
     });
@@ -67,12 +76,19 @@ angular.module('starter.controllers', [])
 .controller("AiringController", function($scope, $state, $http) {
 
 
-   $scope.seasons = [
-        {title: "Spring" , value: 'spring' },
-        {title: "Summer" , value: 'summer' },
-        {title: "Winter" , value: 'winter' },
-        {title: "Fall" , value: 'fall' }        
-    ];
+  $scope.seasons = [{
+    title: "Spring",
+    value: 'spring'
+  }, {
+    title: "Summer",
+    value: 'summer'
+  }, {
+    title: "Winter",
+    value: 'winter'
+  }, {
+    title: "Fall",
+    value: 'fall'
+  }];
 
   $scope.currentSeason = $scope.seasons[0];
 
@@ -82,9 +98,6 @@ angular.module('starter.controllers', [])
       .success(function(data) {
         $scope.chartData = data.info;
         $scope.season = data.season;
-
-
-  
 
 
 
@@ -124,7 +137,9 @@ angular.module('starter.controllers', [])
 .controller("AnimeDetailsController", function($scope, $state, $http, $stateParams) {
 
   $scope.goToReview = function() {
-     $state.go("app.animereviews", {id: $scope.anime.mal_id});
+    $state.go("app.animereviews", {
+      id: $scope.anime.mal_id
+    });
   };
 
   $http.get('http://192.168.1.160:8899/mal/anime/id/' + $stateParams.id)
