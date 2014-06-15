@@ -29,7 +29,7 @@
 
     <div class="row">
         <div class="col col-50 infoheader">Episodes: </div>
-        <div class="col col-50 infodata">{{anime.episodes}}</div>
+        <div class="col col-50 infodata">{{anime.episodes | displayEpisodeCount}}</div>
     </div>
 
     <div class="row">
@@ -84,6 +84,11 @@
     Gallery
   </a>
 
+  <a class="item item-icon-left item-icon-right item-calm" href="#">
+    <i class="icon ion-person"></i>
+    <i class="icon ion-chevron-right"></i>
+    People
+  </a>
 
 
 </div>
