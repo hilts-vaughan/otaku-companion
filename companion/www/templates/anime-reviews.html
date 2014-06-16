@@ -4,33 +4,29 @@
   </ion-nav-buttons>
   <ion-content class="has-header contentpage">
 
+    <ion-list>
 
-
-  <ion-list>
 
 <div class="list card">
 
+  <div ng-repeat="review in reviews">
 
-  <div class="item item-body" ng-repeat="review in reviews" >
-  <div class="item item-avatar">
+  <div class="item item-avatar" >
     <img src="{{review.avatar}}">
-    <span>{{review.authour}}</span>
-    <p>Rating: {{review.rating}}<p>
+    <h2>{{review.authour}}</h2>
+    <p>Overall Rating: {{review.rating}}</p>    
   </div>
 
   <div class="item item-body review-text">
 
-  <pre class="review-text" ng-bind-html="review.body"></pre>
+    <pre class="review-text" ng-bind-html="review.body"></pre>
 
   </div>
 
 
-  </div>
 
 
-
-
-  </div>
+</div>
 
 </div>
 
@@ -41,6 +37,8 @@
    </ion-list>
 
   </ion-content>
+
+
 
 
 
