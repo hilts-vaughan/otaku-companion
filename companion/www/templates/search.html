@@ -26,19 +26,26 @@
 
 </div>
 
-    <ion-list>
+
+<div class="list card" ng-repeat="item in results" ng-click="showAnime(item.id[0])">
+    
+  <div class="item item-avatar">
+    <img src="{{item.image[0]}}">
+    <h2><b>{{item.title[0]}} </b></h2>
+    <p>Episodes: {{item.episodes[0] | displayEpisodeCount}}</p>
+  </div>
+
+  <div class="item item-body">
+    <img class="full-image" src="{{item.image[0]}}">
+    
+
+  <p>{{item.synopsis[0]}}</p>
+
+  </div>
 
 
-
-
-<div class="list card" ng-repeat="anime in chartData">
-    <ng-anime ng-model="anime" ng-click="showAnime(anime.mal_id)"></ng-anime>
 </div>
 
-
-
-
-   </ion-list>
 
   </ion-content>
 

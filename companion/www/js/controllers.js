@@ -119,7 +119,7 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 
-.controller('SearchCtrl', function($scope, $state, $http) {
+.controller('SearchCtrl', function($scope, $state, $http, localStorageService) {
 
   $scope.types = [{
     title: "Anime",
@@ -132,13 +132,48 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   $scope.currentType = $scope.types[0];
   $scope.currentQuery = "";
 
+  $scope.showAnime = function(animeId) {
+
+    $state.go("app.animedetails", {
+      id: animeId
+    });
+  };
+
+
   $scope.updateText = function(option) {
+
+    $scope.results = {};
+
+    if (option.length < 4)
+      return;
+
+
+    // Set our headers as needed
+    var username = localStorageService.get('username');
+    var password = localStorageService.get('password');
+    var b = btoa(username + ":" + password);
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + b;
+
+    $http.get('http://192.168.1.160:8899/mal/search/anime?q=' + option).success(function(data) {
+
+      if (data.anime)
+        $scope.results = data.anime.entry;
+      if (data.manga)
+        $scope.results = data.manga.entry;
+
+      console.log($scope.results);
+      console.log(data);
+    });
+
 
   };
 
   $scope.updateDropdown = function(option) {
 
   };
+
+
+
 
 })
 
