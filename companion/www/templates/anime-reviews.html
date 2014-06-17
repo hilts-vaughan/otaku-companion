@@ -1,42 +1,41 @@
 <ion-view title="Reviews">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
-  <ion-content class="has-header contentpage">
+<ion-nav-buttons side="left">
+<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+<ion-content class="has-header contentpage">
 
-    <ion-list>
+<ion-list>
 
 
 <div class="list card">
 
   <div ng-repeat="review in reviews">
 
-  <div class="item item-avatar" >
-    <img src="{{review.avatar}}">
-    <h2>{{review.authour}}</h2>
-    <p>Overall Rating: {{review.rating}}</p>    
+    <div class="item item-avatar" >
+      <img src="{{review.avatar}}">
+      <h2>{{review.authour}}</h2>
+      <p>Overall Rating: {{review.rating}}</p>    
+    </div>
+
+    <div class="item item-body review-text">
+
+      <pre class="review-text" ng-bind-html="review.body"></pre>
+
+    </div>
+
+
+
+
   </div>
 
-  <div class="item item-body review-text">
-
-    <pre class="review-text" ng-bind-html="review.body"></pre>
-
-  </div>
-
-
-
-
-</div>
-
-</div>
 
 
 
 
 
-   </ion-list>
+</ion-list>
 
-  </ion-content>
+</ion-content>
 
 
 

@@ -25,9 +25,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
     .state('entry', {
       url: "/",      
+      templateUrl: "templates/entry.html",
+      controller: 'EntryController'
+    })
+
+    .state('login', {
+      url: "/login",      
       templateUrl: "templates/login.html",
       controller: 'LoginController'
     })
+
 
     .state('app', {
       url: "/app",
@@ -86,12 +93,12 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
-    .state('app.playlists', {
-      url: "/dashboard",
+    .state('app.search', {
+      url: "/search",
       views: {
         'menuContent' :{
-          templateUrl: "templates/dashboard.html",
-          controller: 'PlaylistsCtrl'
+          templateUrl: "templates/search.html",
+          controller: 'SearchCtrl'
         }
       }
     })

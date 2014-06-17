@@ -2,7 +2,47 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
-    <h1>Search</h1>
+  <ion-content class="has-header contentpage">
+
+<div class="list">
+
+
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Type
+    </div>
+  <select ng-change="updateDropdown(currentType)" ng-model="currentType" ng-options="type.title for type in types"></select>
+  </label>
+
+
+  <label class="item item-input item-text">
+    <div class="input-label">
+      Searching for...
+    </div>
+  <input type="text" ng-model="currentQuery" ng-change="updateText(currentQuery)" ng-model-options={updateOn: 'blur'}" placeholder="Enter something here..."/>
+  </label>
+
+
+</div>
+
+    <ion-list>
+
+
+
+
+<div class="list card" ng-repeat="anime in chartData">
+    <ng-anime ng-model="anime" ng-click="showAnime(anime.mal_id)"></ng-anime>
+</div>
+
+
+
+
+   </ion-list>
+
   </ion-content>
+
+
+
+
 </ion-view>

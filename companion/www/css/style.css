@@ -57,3 +57,10 @@
 .review-text {
 	font-family: Arial;
 }
+
+.splash-entry {
+	background-color: #43cee6;
+	background-image: url('../img/otaku.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}

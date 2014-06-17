@@ -1,14 +1,23 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['LocalStorageModule'])
+
+
+.config(['localStorageServiceProvider',
+  function(localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('otaku');
+  }
+])
+
 
 .filter('displayEpisodeCount', function() {
   return function(input) {
     console.log(input);
-    if(input == -1)
+    if (input == -1)
       return "Unknown";
     else
       return input;
   };
 })
+
 
 
 .controller('AppCtrl', function($scope) {})
@@ -37,11 +46,18 @@ angular.module('starter.controllers', [])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {})
 
-.controller('LoginController', function($scope, $state) {
+.controller('LoginController', function($scope, $state, localStorageService, $location) {
 
-  $scope.signIn = function() {
-    // Do some cool stuff here
-    $state.go("app.browse");
+  $scope.user = {};
+  $scope.username = "";
+  $scope.password = "";
+
+  $scope.signIn = function(user) {
+
+    // Set some values here and then attempt to sign in again
+    localStorageService.set('username', user.username);
+    localStorageService.set('password', user.password);
+    $location.path("/");
   }
 
 
@@ -59,6 +75,37 @@ angular.module('starter.controllers', [])
 })
 
 
+.controller('EntryController', function($scope, $state, $http, $stateParams, localStorageService, $location, $timeout) {
+
+  // Set our headers as needed
+  var username = localStorageService.get('username');
+  var password = localStorageService.get('password');
+  var b = btoa(username + ":" + password);
+  $http.defaults.headers.common['Authorization'] = 'Basic ' + b;
+
+  $timeout(function() {
+
+
+    // We'll attempt to authenticate with the server; if OK we can proceed, otherwise go to login
+    $http.get('http://192.168.1.160:8899/mal/user/').success(function(data) {
+      console.log(data);
+      if (data.user) {
+        // OK, we're good. Go to the airing page...
+        $location.path("app/airing");
+      } else {
+        $location.path('/login');
+      }
+
+
+    });
+
+
+
+  }, 2000)
+
+
+
+})
 
 .controller('AnimeReviewsController', function($scope, $state, $http, $stateParams) {
 
@@ -72,9 +119,33 @@ angular.module('starter.controllers', [])
 })
 
 
+.controller('SearchCtrl', function($scope, $state, $http) {
 
-.controller("AiringController", function($scope, $state, $http) {
+  $scope.types = [{
+    title: "Anime",
+    value: "Anime"
+  }, {
+    title: "Manga",
+    value: "Manga"
+  }];
 
+  $scope.currentType = $scope.types[0];
+  $scope.currentQuery = "";
+
+  $scope.updateText = function(option) {
+
+  };
+
+  $scope.updateDropdown = function(option) {
+
+  };
+
+})
+
+
+.controller("AiringController", function($scope, $state, $http, $ionicViewService) {
+
+  $ionicViewService.clearHistory();
 
   $scope.seasons = [{
     title: "Spring",
