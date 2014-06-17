@@ -74,6 +74,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     })    
 
 
+    .state('app.mangadetails', {
+      url: "/manga/:id",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/manga-details.html",
+          controller: "MangaDetailsController"
+        }
+      }
+    })   
+
+
     .state('app.animereviews', {
       url: "/anime/reviews/:id",
       views: {

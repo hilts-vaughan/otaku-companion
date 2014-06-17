@@ -32,14 +32,17 @@
   <div class="item item-avatar">
     <img src="{{item.image[0]}}">
     <h2><b>{{item.title[0]}} </b></h2>
-    <p>Episodes: {{item.episodes[0] | displayEpisodeCount}}</p>
+    <p>Type: {{item.type[0]}}</p>
   </div>
 
   <div class="item item-body">
     <img class="full-image" src="{{item.image[0]}}">
     
 
-  <p>{{item.synopsis[0]}}</p>
+      </br>
+      <pre class="review-text" ng-bind-html="item.synopsis[0]"></pre>
+
+
 
   </div>
 

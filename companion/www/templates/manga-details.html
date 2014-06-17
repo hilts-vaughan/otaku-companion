@@ -1,0 +1,113 @@
+<ion-view title="{{manga.name}}">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header contentpage">
+
+
+
+    <ion-list>
+
+
+<div class="list card animedetails">
+
+  <div class="item">    
+    <img src="{{manga.poster}}">
+  </div>
+
+  <div class="item item-body">
+
+    <div class="row">
+        <div class="col col-50 infoheader">Title: </div>
+        <div class="col col-50 infodata">{{manga.name}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col col-50 infoheader">Type: </div>
+        <div class="col col-50 infodata">{{manga.type}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col col-50 infoheader">Episodes: </div>
+        <div class="col col-50 infodata">{{manga.episodes | displayEpisodeCount}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col col-50 infoheader">Status: </div>
+        <div class="col col-50 infodata">{{manga.status}}</div>
+    </div>    
+
+    <div class="row">
+        <div class="col col-50 infoheader">Score: </div>
+        <div class="col col-50 infodata">{{manga.malstats.score}}</div>
+    </div>    
+
+    <div class="row">
+        <div class="col col-50 infoheader">Ranked: </div>
+        <div class="col col-50 infodata">#{{manga.malstats.rank}}</div>
+    </div>    
+
+    <div class="row">
+        <div class="col col-30 infoheader">Genres: </div>
+        <div class="col col-70 infodata"> <span ng-repeat="genre in manga.genres">{{genre}} </span> </div>
+    </div>   
+
+
+
+  </div>
+
+  <div class="item item-body">
+
+    
+  <h2>Synoposis</h2>
+  <p>{{manga.synopsis}}</p>
+
+
+  <div class="list">
+
+  <a class="item item-icon-left item-icon-right item-calm" ng-click="goToReview()">
+    <i class="icon ion-chatbubble"></i>
+    <i class="icon ion-chevron-right"></i>
+    Reviews
+  </a>
+
+
+  <a class="item item-icon-left item-icon-right item-calm" href="#">
+    <i class="icon ion-chatbubbles"></i>
+    <i class="icon ion-chevron-right"></i>
+    Recommendations
+  </a>
+
+  <a class="item item-icon-left item-icon-right item-calm" href="#">
+    <i class="icon ion-image"></i>
+    <i class="icon ion-chevron-right"></i>
+    Gallery
+  </a>
+
+  <a class="item item-icon-left item-icon-right item-calm" href="#">
+    <i class="icon ion-person"></i>
+    <i class="icon ion-chevron-right"></i>
+    People
+  </a>
+
+
+</div>
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+   </ion-list>
+
+  </ion-content>
+
+
+
+
+</ion-view>

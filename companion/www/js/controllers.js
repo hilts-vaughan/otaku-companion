@@ -123,10 +123,10 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
   $scope.types = [{
     title: "Anime",
-    value: "Anime"
+    value: "anime"
   }, {
     title: "Manga",
-    value: "Manga"
+    value: "manga"
   }];
 
   $scope.currentType = $scope.types[0];
@@ -134,17 +134,48 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
   $scope.showAnime = function(animeId) {
 
-    $state.go("app.animedetails", {
-      id: animeId
-    });
+    switch ($scope.currentType.value) {
+      case "anime":
+        $state.go("app.animedetails", {
+          id: animeId
+        });
+        break;
+      case "manga":
+
+        $state.go("app.mangadetails", {
+          id: animeId
+        });
+        break;
+    }
+
+
+
   };
 
 
   $scope.updateText = function(option) {
 
     $scope.results = {};
+    $scope.currentQuery = option;
 
-    if (option.length < 4)
+
+    $scope.reload();
+
+
+  };
+
+  $scope.updateDropdown = function(option) {
+    $scope.currentType = option;
+
+    $scope.reload();
+  };
+
+
+
+  $scope.reload = function() {
+
+
+    if ($scope.currentQuery.length < 4)
       return;
 
 
@@ -154,24 +185,17 @@ angular.module('starter.controllers', ['LocalStorageModule'])
     var b = btoa(username + ":" + password);
     $http.defaults.headers.common['Authorization'] = 'Basic ' + b;
 
-    $http.get('http://192.168.1.160:8899/mal/search/anime?q=' + option).success(function(data) {
 
-      if (data.anime)
-        $scope.results = data.anime.entry;
-      if (data.manga)
-        $scope.results = data.manga.entry;
+    $http.get('http://192.168.1.160:8899/mal/search/' + $scope.currentType.value + '?q=' + $scope.currentQuery)
+      .success(function(data) {
+        if (data.anime)
+          $scope.results = data.anime.entry;
+        if (data.manga)
+          $scope.results = data.manga.entry;
 
-      console.log($scope.results);
-      console.log(data);
-    });
-
+      });
 
   };
-
-  $scope.updateDropdown = function(option) {
-
-  };
-
 
 
 
@@ -239,6 +263,27 @@ angular.module('starter.controllers', ['LocalStorageModule'])
     templateUrl: 'templates/directives/anime-card.html'
   }
 })
+
+
+
+.controller("MangaDetailsController", function($scope, $state, $http, $stateParams) {
+
+  $scope.goToReview = function() {
+    $state.go("app.animereviews", {
+      id: $scope.manga.mal_id
+    });
+  };
+
+  $http.get('http://192.168.1.160:8899/mal/manga/id/' + $stateParams.id)
+    .success(function(data) {
+      $scope.manga = data;
+
+    });
+
+
+
+})
+
 
 .controller("AnimeDetailsController", function($scope, $state, $http, $stateParams) {
 
