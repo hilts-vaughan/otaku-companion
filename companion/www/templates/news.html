@@ -1,0 +1,34 @@
+<ion-view title="Otaku News">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header contentpage">
+
+    <ion-list>
+
+
+<div class="list card" ng-repeat="feed in feeds" ng-show="feed.title.length > 0" ng-click="openNews(feed)">
+
+  <div class="item item-text-wrap" >  
+    <h2><b>{{feed.title}}</b></h2>
+    <h3><i>{{feed.publishedDate}}</i></h3>
+    <p class="review-text">{{feed.contentSnippet | noBB}}</p>
+  </div>
+
+</div>
+
+
+
+
+
+
+   </ion-list>
+
+  </ion-content>
+
+
+
+
+
+
+</ion-view>

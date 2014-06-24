@@ -7,6 +7,14 @@ angular.module('starter.controllers', ['LocalStorageModule'])
   }
 ])
 
+.filter('noBB', function() {
+
+  return function(input) {
+    input = input.replace(/\[(\w+)[^w]*?](.*?)\[\/\1]/g, '$2');
+    return input;
+  };
+
+})
 
 .filter('displayEpisodeCount', function() {
   return function(input) {
@@ -19,30 +27,15 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 
+.factory('FeedService',['$http',function($http){
+    return {
+        parseFeed : function(url){
+            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+        }
+    }
+}])
 
-.controller('AppCtrl', function($scope) {})
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [{
-    title: 'Reggae',
-    id: 1
-  }, {
-    title: 'Chill',
-    id: 2
-  }, {
-    title: 'Dubstep',
-    id: 3
-  }, {
-    title: 'Indie',
-    id: 4
-  }, {
-    title: 'Rap',
-    id: 5
-  }, {
-    title: 'Cowbell',
-    id: 6
-  }];
-})
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {})
 
@@ -73,6 +66,27 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 
 })
+
+
+.controller('NewsController', function($scope, $state, FeedService) {
+
+ $scope.loadButonText="Load";
+    $scope.loadFeed=function(e){        
+        FeedService.parseFeed("http://myanimelist.net/rss.php?type=news").then(function(res){
+            $scope.feeds=res.data.responseData.feed.entries;        
+            console.log($scope.feeds)    
+        });
+    }
+
+    $scope.openNews = function(feed) {
+      window.open("http://myanimelist.net" + feed.link, '_blank', 'location=yes');
+    }
+
+    $scope.loadFeed();
+
+
+})
+
 
 
 .controller('EntryController', function($scope, $state, $http, $stateParams, localStorageService, $location, $timeout) {
