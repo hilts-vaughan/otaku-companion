@@ -1,49 +1,30 @@
 <ion-side-menus>
 
   <ion-pane ion-side-menu-content>
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7 bar-royal">
+    <ion-nav-bar class="bar-stable nav-title-slide-ios7 bar-dark">
       <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
   </ion-pane>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable bar-royal">
+    <header class="bar bar-header bar-stable bar-dark">
       <h1 class="title">Menu</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
         
-        <ion-item nav-clear menu-close href="#/app/news">
-          News
-        </ion-item>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/search"><i class="icon ion-search"></i>Search</a>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/news"><i class="icon ion-earth"></i>News</a>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/airing"><i class="icon ion-stats-bars"></i>On Air</a>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/anime"><i class="icon ion-ios7-monitor"></i>Anime</a>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/manga"><i class="icon ion-android-book"></i>Manga</a>
+        <a class="item item-icon-left menu-close nav-clear" href="#/app/my"><i class="icon ion-stats-bars"></i>My List</a>
         
-        <ion-item nav-clear menu-close href="#/app/airing">
-          On Air
-        </ion-item>
-        
-        <ion-item nav-clear menu-close href="#/app/airing">
-          Anime
-        </ion-item>
-        
-        <ion-item nav-clear menu-close href="#/app/airing">
-          Manga
-        </ion-item>
-        
-        <ion-item nav-clear menu-close href="#/app/airing">
-          People
-        </ion-item>
 
 
 
 
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
-        </ion-item>
-
-        <ion-item nav-clear menu-close href="#/app/my">
-          My List
-        </ion-item>
 
       </ion-list>
     </ion-content>

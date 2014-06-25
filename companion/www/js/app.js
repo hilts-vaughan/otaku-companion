@@ -53,6 +53,18 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     })
 
 
+    .state('app.anime', {
+      url: "/anime",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/anime.html",
+          controller: "AnimeController"
+        }
+      }
+    })
+
+
+
     .state('app.airing', {
       url: "/airing",
       views: {

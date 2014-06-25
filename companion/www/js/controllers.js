@@ -68,6 +68,17 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 
+.controller('AnimeController', function($scope, $state) {
+
+  $scope.doStuff = function() {
+
+  }
+
+
+
+})
+
+
 .controller('NewsController', function($scope, $state, FeedService) {
 
  $scope.loadButonText="Load";
