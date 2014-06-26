@@ -2,6 +2,7 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+
   <ion-content class="has-header contentpage" padding="false">
 
 <div class="list">
@@ -24,9 +25,9 @@
 
 
 
-
-    <ng-anime ng-repeat="anime in chartData" ng-model="anime" ng-click="showAnime(anime.mal_id)"></ng-anime>
-
+  <div ng-repeat="anime in chartData">
+    <ng-anime ng-model="anime" ng-click="showAnime(anime.mal_id)" ></ng-anime>
+  </div>
 
 
 

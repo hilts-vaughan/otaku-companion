@@ -471,7 +471,7 @@ angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
       .success(function(data) {
         $scope.chartData = data.info;
         $scope.season = data.season;
-
+        console.log($scope.chartData)
 
 
       });
@@ -480,6 +480,7 @@ angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
   };
 
   $scope.showAnime = function(animeId) {
+
 
     $state.go("app.animedetails", {
       id: animeId
