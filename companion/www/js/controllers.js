@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['LocalStorageModule'])
+angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
 
 
 .config(['localStorageServiceProvider',
@@ -10,7 +10,11 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 .filter('noBB', function() {
 
   return function(input) {
-    input = input.replace(/\[(\w+)[^w]*?](.*?)\[\/\1]/g, '$2');
+
+    for (i = 0; i < 5; i++) {
+      input = input.replace(/\[(\w+)[^w]*?](.*?)\[\/\1]/g, '$2');
+    }
+
     return input;
   };
 
@@ -27,13 +31,15 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 
-.factory('FeedService',['$http',function($http){
+.factory('FeedService', ['$http',
+  function($http) {
     return {
-        parseFeed : function(url){
-            return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
-        }
+      parseFeed: function(url) {
+        return $http.jsonp('//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+      }
     }
-}])
+  }
+])
 
 
 
@@ -68,32 +74,243 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 })
 
 
-.controller('AnimeController', function($scope, $state) {
+.controller('AnimeController', function($scope, $state, $http) {
 
-  $scope.doStuff = function() {
+  $scope.rankIndex = 0;
+  $scope.items = [];
+  $scope.canLoad = true;
 
-  }
+  $scope.pageRanked = function() {
+
+
+    $http.get('http://192.168.1.160:8899/mal/chart/anime/' + $scope.rankIndex)
+      .success(function(data) {
+
+
+        var wait = data.length - 1;
+        var back = 0;
+        var i = 0;
+
+        for (i = 0; i < wait; i++) {
+
+          $http.get('http://192.168.1.160:8899/mal/anime/id/' + data[i].url)
+            .success(function(anime) {
+
+              $scope.items.push(anime);
+              back++;
+
+              if (back == wait) {
+
+                $scope.items = _.sortBy($scope.items, function(o) {
+                  return parseInt(o.malstats.rank);
+                });
+
+                console.log($scope.items);
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+              }
+
+            });
+
+        }
+
+
+
+        // page limit by 30
+        $scope.rankIndex += 30;
+
+      });
+
+
+
+  };
+
+
+  $scope.pagePopular = function() {
+
+
+    $http.get('http://192.168.1.160:8899/mal/chart/animePop/' + $scope.rankIndex)
+      .success(function(data) {
+
+        console.log($scope.rankIndex)
+        var wait = data.length - 1;
+        var back = 0;
+        var i = 0;
+
+        for (i = 0; i < wait; i++) {
+
+          $http.get('http://192.168.1.160:8899/mal/anime/id/' + data[i].url)
+            .success(function(anime) {
+
+              $scope.items.push(anime);
+              back++;
+
+              if (back == wait) {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                $scope.items = _.sortBy($scope.items, 'malstats.rank');
+
+              }
+
+            });
+
+        }
+
+
+
+        // page limit by 30
+        $scope.rankIndex += 30;
+
+      });
+
+
+
+  };
+
+  $scope.selectPopular = function() {
+    $scope.items = [];
+    $scope.rankIndex = 0;
+  };
+
+
+  $scope.showAnime = function(animeId) {
+
+    $state.go("app.animedetails", {
+      id: animeId
+    });
+  };
 
 
 
 })
 
 
+.controller('MangaController', function($scope, $state, $http) {
+
+  $scope.rankIndex = 0;
+  $scope.items = [];
+  $scope.canLoad = true;
+
+  $scope.pageRanked = function() {
+
+
+    $http.get('http://192.168.1.160:8899/mal/chart/manga/' + $scope.rankIndex)
+      .success(function(data) {
+
+
+        var wait = data.length - 1;
+        var back = 0;
+        var i = 0;
+
+        for (i = 0; i < wait; i++) {
+
+          $http.get('http://192.168.1.160:8899/mal/manga/id/' + data[i].url)
+            .success(function(anime) {
+
+              $scope.items.push(anime);
+              back++;
+
+              if (back == wait) {
+
+                $scope.items = _.sortBy($scope.items, function(o) {
+                  return parseInt(o.malstats.rank);
+                });
+                
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+              }
+
+            });
+
+        }
+
+
+
+        // page limit by 30
+        $scope.rankIndex += 30;
+
+      });
+
+
+
+  };
+
+
+  $scope.pagePopular = function() {
+
+
+    $http.get('http://192.168.1.160:8899/mal/chart/mangaPop/' + $scope.rankIndex)
+      .success(function(data) {
+
+        console.log($scope.rankIndex)
+        var wait = data.length - 1;
+        var back = 0;
+        var i = 0;
+
+        for (i = 0; i < wait; i++) {
+
+          $http.get('http://192.168.1.160:8899/mal/manga/id/' + data[i].url)
+            .success(function(anime) {
+
+              $scope.items.push(anime);
+              back++;
+
+              if (back == wait) {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                $scope.items = _.sortBy($scope.items, 'malstats.rank');
+
+              }
+
+            });
+
+        }
+
+
+
+        // page limit by 30
+        $scope.rankIndex += 30;
+
+      });
+
+
+
+  };
+
+  $scope.selectPopular = function() {
+    $scope.items = [];
+    $scope.rankIndex = 0;
+  };
+
+
+  $scope.showAnime = function(animeId) {
+
+    $state.go("app.mangadetails", {
+      id: animeId
+    });
+  };
+
+
+
+})
+
+
+
 .controller('NewsController', function($scope, $state, FeedService) {
 
- $scope.loadButonText="Load";
-    $scope.loadFeed=function(e){        
-        FeedService.parseFeed("http://myanimelist.net/rss.php?type=news").then(function(res){
-            $scope.feeds=res.data.responseData.feed.entries;        
-            console.log($scope.feeds)    
-        });
-    }
+  $scope.loadButonText = "Load";
+  $scope.loadFeed = function(e) {
+    FeedService.parseFeed("http://myanimelist.net/rss.php?type=news").then(function(res) {
+      $scope.feeds = res.data.responseData.feed.entries;
+      console.log($scope.feeds)
+    });
+  }
 
-    $scope.openNews = function(feed) {
-      window.open("http://myanimelist.net" + feed.link, '_blank', 'location=yes');
-    }
+  $scope.openNews = function(feed) {
+    window.open("http://myanimelist.net" + feed.link, '_blank', 'location=yes');
+  }
 
-    $scope.loadFeed();
+  $scope.loadFeed();
 
 
 })
@@ -134,7 +351,8 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
 .controller('AnimeReviewsController', function($scope, $state, $http, $stateParams) {
 
-  $http.get('http://192.168.1.160:8899/mal/anime/id/' + $stateParams.id + '/reviews')
+  console.log($stateParams)
+  $http.get('http://192.168.1.160:8899/mal/{}/id/'.replace('{}', $stateParams.type) + $stateParams.id + '/reviews')
     .success(function(data) {
       $scope.reviews = data.reviews;
 
@@ -294,8 +512,10 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 .controller("MangaDetailsController", function($scope, $state, $http, $stateParams) {
 
   $scope.goToReview = function() {
+    debugger
     $state.go("app.animereviews", {
-      id: $scope.manga.mal_id
+      id: $scope.manga.mal_id,
+      type: 'manga'
     });
   };
 
@@ -314,7 +534,8 @@ angular.module('starter.controllers', ['LocalStorageModule'])
 
   $scope.goToReview = function() {
     $state.go("app.animereviews", {
-      id: $scope.anime.mal_id
+      id: $scope.anime.mal_id,
+      type: 'anime'
     });
   };
 
