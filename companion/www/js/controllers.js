@@ -42,6 +42,101 @@ angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
 ])
 
 
+.factory('MalService', ['$http', 'localStorageService',
+  function($http, localStorageService) {
+    return {
+
+      /**
+       * Syncs the MAL list
+       * @param  {[type]} url [description]
+       * @return {[type]}     [description]
+       */
+      syncList: function(callback) {
+
+        var username = localStorageService.get('username');
+        var password = localStorageService.get('password');
+        var b = btoa(username + ":" + password);
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + b;
+
+        $http.get('http://192.168.1.160:8899/mal/list/fetch/anime/' + username)
+          .success(function(animeList) {
+
+            animeList = animeList.myanimelist;
+
+            $.each(animeList.anime, function(i, value) {
+
+              $.each(value, function(index, value) {
+                animeList.anime[i][index] = value[0];
+              });
+
+              value['title'] = value['series_title'];
+              value['poster'] = value['series_image'];
+
+            });
+
+            $.each(animeList.myinfo, function(i, value) {
+
+              $.each(value, function(index, value) {
+                animeList.myinfo[i][index] = value[0];
+              });
+
+            });
+
+
+
+            $http.get('http://192.168.1.160:8899/mal/list/fetch/manga/' + username)
+              .success(function(mangaList) {
+
+
+                mangaList = mangaList.myanimelist;
+
+                $.each(mangaList.manga, function(i, value) {
+
+                  $.each(value, function(index, value) {
+                    mangaList.manga[i][index] = value[0];
+                  });
+
+                  value['title'] = value['series_title'];
+                  value['poster'] = value['series_image'];
+
+                });
+
+
+
+                $.each(mangaList.myinfo, function(i, value) {
+
+                  $.each(value, function(index, value) {
+                    mangaList.myinfo[i][index] = value[0];
+                  });
+
+                });
+
+                // We have our anime and manga list; now we just create two lists and shove them together
+                var lib = {};
+                lib.anime = animeList;
+                lib.manga = mangaList;
+
+                console.log(lib);
+                localStorageService.set('lib', lib);
+
+                callback();
+
+
+              });
+
+
+          });
+
+
+      }
+
+
+
+    }
+  }
+])
+
+
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {})
 
@@ -63,12 +158,96 @@ angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
 })
 
 
-.controller('MyListController', function($scope, $state) {
+.controller('MyListController', function($scope, $state, localStorageService, MalService) {
 
-  $scope.doStuff = function() {
+  $scope.init = function() {
+
+    $scope.lib = localStorageService.get('lib');
+
+    if (!$scope.lib) {
+      MalService.syncList(function() {
+        $scope.lib = localStorageService.get('lib');
+        $scope.ready();
+      });
+    } else {
+      console.log($scope.lib)
+      $scope.ready();
+    }
+  }
+
+  $scope.ready = function() {
 
   }
 
+  $scope.showAnime = function(animeId) {
+
+    $state.go("app.animedetails", {
+      id: animeId
+    });
+  };
+
+  $scope.showManga = function(mangaId) {
+
+    $state.go("app.mangadetails", {
+      id: mangaId
+    });
+  };
+
+
+  $scope.toggleGroup = function(group) {
+    if ($scope.isGroupShown(group)) {
+      $scope.shownGroup = null;
+    } else {
+      $scope.shownGroup = group;
+    }
+  };
+  $scope.isGroupShown = function(group) {
+    return $scope.shownGroup === group;
+  };
+
+
+  $scope.groups = [];
+
+    $scope.groups[0] = {
+      name: "Watching",
+      status_code: "0"
+    };
+
+    $scope.groups[0] = {
+      name: "Watching",
+      status: "0"
+    };
+
+    // 1/watching, 2/completed, 3/onhold, 4/dropped, 6/plantowatch    
+
+    $scope.groups[0] = {
+      name: "In Progress",
+      status: "1"
+    };    
+
+    $scope.groups[1] = {
+      name: "Completed",
+      status: "2"
+    };    
+
+    $scope.groups[2] = {
+      name: "On Hold",
+      status: "3"
+    };    
+
+    $scope.groups[3] = {
+      name: "Dropped",
+      status: "4"
+    };    
+
+    $scope.groups[4] = {
+      name: "Planned",
+      status: "6"
+    };    
+
+
+
+  $scope.init();
 
 
 })
@@ -215,7 +394,7 @@ angular.module('starter.controllers', ['LocalStorageModule', 'infiniteScroll'])
                 $scope.items = _.sortBy($scope.items, function(o) {
                   return parseInt(o.malstats.rank);
                 });
-                
+
 
                 $scope.$broadcast('scroll.infiniteScrollComplete');
               }
