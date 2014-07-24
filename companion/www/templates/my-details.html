@@ -1,0 +1,84 @@
+<ion-view title="Edit Details">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+
+                <ion-content has-header="true" padding="false">              
+
+                    <div class="list card animedetails">
+
+
+                      <div class="item item-body">
+
+
+                        <div class="list">
+
+                         <label class="item item-input">
+                            <span class="input-label">Status</span>
+                            <select style="width: 90%; margin-right: 6px;" ng-change="update(currentStatus)" ng-model="currentStatus" ng-options="status.title for status in statusLabels"></select>
+                          </label>
+
+                          <label class="item item-input">
+                            <span class="input-label">Score</span>
+                           <input type="number" class="detailsinput" name="score" min="0" max="10" ng-model="entry.score">
+                          </label>
+
+                          <label ng-show="entry.episode > -1" class="item item-input">
+                            <span class="input-label">Episodes</span>
+                           <input type="number" class="detailsinput" name="score" min="0" max="999999" ng-model="entry.episode">
+                          </label>
+
+                          <label ng-show="entry.chapter > -1" class="item item-input">
+                            <span class="input-label">Chapter</span>
+                           <input type="number" class="detailsinput" name="chapter" min="0" max="999999" ng-model="entry.chapter">
+                          </label>                          
+
+                        </div>
+
+
+
+                      <div class="list">
+
+
+                      <div ng-show="entry != undefined" class="item item-calm" ng-click="saveDetails()">
+                        <i class="icon ion-disk"></i> 
+                        Save Details
+                      </div>
+
+
+
+                      </div>
+
+                      </div>
+
+
+
+
+
+
+                </ion-content>
+           
+
+
+
+
+
+
+
+    <ion-list>
+
+
+
+
+
+
+
+
+   </ion-list>
+
+
+
+
+
+</ion-view>
