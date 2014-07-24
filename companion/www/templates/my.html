@@ -20,11 +20,11 @@
               {{group.name}}
           </ion-item>
 
-          <div class="accordion-item" ng-repeat="anime in lib.anime.anime | filter: { my_status: group.status }"
+          <div class="accordion-item" ng-repeat="anime in lib.anime.anime | filter: { status: group.status }"
                     ng-show="isGroupShown(group)">
 
             <div>              
-               <ng-anime ng-model="anime" ng-click="showAnime(anime.series_animedb_id)" ></ng-anime>              
+               <ng-anime ng-model="anime" ng-click="showAnime(anime.mal_id )" ></ng-anime>              
             </div>
           </div>
         
@@ -50,11 +50,11 @@
               {{group.name}}
           </ion-item>
 
-          <div class="accordion-item" ng-repeat="anime in lib.manga.manga | filter: { my_status: group.status }"
+          <div class="accordion-item" ng-repeat="anime in lib.manga.manga  | filter: { status: group.status }"
                     ng-show="isGroupShown(group)">
 
             <div>              
-               <ng-anime ng-model="anime" ng-click="showManga(anime.series_mangadb_id)" ></ng-anime>              
+               <ng-anime ng-model="anime" ng-click="showManga(anime.mal_id)" ></ng-anime>              
             </div>
           </div>
         

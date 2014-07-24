@@ -88,3 +88,12 @@
 .group {
 	clear: left;
 }
+
+.detailsinput {
+	text-align: right !important;
+}
+
+.input-label {
+	min-width: 110px;
+}
+}

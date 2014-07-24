@@ -1,9 +1,21 @@
 // Ionic Starter App
-
+// Authour: Vaughan Hilts
+// 
+// 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
+// 
+// 
+// 
+// 
+
+
+
+angular.module('starter.controllers',[]);
+
+
 angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
 
 .run(function($ionicPlatform) {
@@ -19,7 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
     }
   });
 })
-
+//
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -34,6 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
       templateUrl: "templates/login.html",
       controller: 'LoginController'
     })
+
 
 
     .state('app', {
@@ -64,6 +77,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
     })
 
 
+    .state('app.listdetails', {
+      url: "/listdetails/:type/:id",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/my-details.html",
+          controller: "ListDetailsController"
+        }
+      }
+    })
+
+
+
     .state('app.manga', {
       url: "/manga",
       views: {
@@ -88,7 +113,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
     })
 
     .state('app.animedetails', {
-      url: "/anime/:id",
+      url: "/content/:type/:id",
       views: {
         'menuContent' :{
           templateUrl: "templates/anime-details.html",
@@ -97,16 +122,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'infiniteScroll'])
       }
     })    
 
-
-    .state('app.mangadetails', {
-      url: "/manga/:id",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/manga-details.html",
-          controller: "MangaDetailsController"
-        }
-      }
-    })   
 
 
     .state('app.animereviews', {

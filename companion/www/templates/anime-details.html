@@ -28,13 +28,17 @@
     </div>
 
     <div class="row">
-        <div class="col col-50 infoheader">Episodes: </div>
-        <div class="col col-50 infodata">{{anime.episodes | displayEpisodeCount}}</div>
+        <div class="col col-50 infoheader" ng-show="anime.episodes">Episodes: </div>
+        <div class="col col-50 infodata" ng-show="anime.episodes">{{anime.episodes | displayEpisodeCount}}</div>
+
+        <div class="col col-50 infoheader" ng-show="anime.chapters">Chapters: </div>
+        <div class="col col-50 infodata" ng-show="anime.chapters" >{{anime.chapters | displayEpisodeCount}}</div>
+
     </div>
 
     <div class="row">
         <div class="col col-50 infoheader">Status: </div>
-        <div class="col col-50 infodata">{{anime.status}}</div>
+        <div class="col col-50 infodata">{{anime.status | statusFormatter }}</div>
     </div>    
 
     <div class="row">
@@ -49,12 +53,13 @@
 
     <div class="row">
         <div class="col col-30 infoheader">Genres: </div>
-        <div class="col col-70 infodata"> <span ng-repeat="genre in anime.genres">{{genre}} </span> </div>
+        <div class="col col-70 infodata"> <span> <ul> <li ng-repeat="genre in anime.genres">{{genre}}</li> </ul> </span> </div>
     </div>   
 
 
 
   </div>
+
 
   <div class="item item-body">
 
@@ -64,6 +69,20 @@
 
 
   <div class="list">
+
+
+  <div ng-show="entry != undefined" class="item item-icon-left item-icon-right item-calm" ng-click="remove()">
+    <i class="icon ion-android-note"></i>
+    <i class="icon ion-chevron-right"></i>
+    Edit List
+  </div>
+
+  <div ng-show="entry == undefined" class="item item-icon-left item-icon-right item-calm" ng-click="addToList()">
+    <i class="icon ion-checkmark-round"></i>
+    <i class="icon"></i>
+    Add to List
+  </div>
+
 
   <a class="item item-icon-left item-icon-right item-calm" ng-click="goToReview()">
     <i class="icon ion-chatbubble"></i>
@@ -89,6 +108,7 @@
     <i class="icon ion-chevron-right"></i>
     People
   </a>
+
 
 
 </div>
